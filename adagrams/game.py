@@ -36,9 +36,7 @@ def draw_letters():
             letter_pool.append(letter)
 
     drawn_letters = []
-
     for _ in range(10):
-
         new_letter = letter_pool[randint(0, len(letter_pool) - 1)]
         letter_pool.remove(new_letter)
         drawn_letters.append(new_letter)
@@ -46,10 +44,24 @@ def draw_letters():
     return drawn_letters
 
 def uses_available_letters(word, letter_bank):
-    pass
+    uppercase_word = word.upper()
+    letters = letter_bank[:]
+    for letter in uppercase_word:
+        if letter not in letters:
+            return False
+        else:
+            letters.remove(letter)
+    return True
 
 def score_word(word):
     pass
 
 def get_highest_word_score(word_list):
     pass
+
+letters = ["D", "O", "G", "X", "X", "X", "X", "X", "X", "X"]
+word = "DOG"
+    
+# Act
+is_valid = uses_available_letters(word, letters)
+print(is_valid)

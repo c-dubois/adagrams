@@ -54,14 +54,98 @@ def uses_available_letters(word, letter_bank):
     return True
 
 def score_word(word):
-    pass
+    points = 0
+
+    if len(word) > 6:
+        points += 8
+
+    for char in word:
+        char = char.upper()
+        if char in ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"]:
+            points += 1
+        elif char in ["D", "G"]:
+            points += 2
+        elif char in ["B", "C", "M", "P"]:
+            points += 3
+        elif char in ["F", "H", "V", "W", "Y"]:
+            points += 4
+        elif char == "K":
+            points += 5
+        elif char in ["J", "X"]:
+            points += 8
+        else:
+            points += 10
+
+    return points
 
 def get_highest_word_score(word_list):
-    pass
-
-letters = ["D", "O", "G", "X", "X", "X", "X", "X", "X", "X"]
-word = "DOG"
     
-# Act
-is_valid = uses_available_letters(word, letters)
-print(is_valid)
+    word_score_dict = {}
+    for word in word_list:
+        word_score_dict[word] = score_word(word)
+    
+    winning_score = list(word_score_dict.values())[0]
+    for score in word_score_dict.values():
+        if score > winning_score:
+            winning_score = score
+
+    winning_words_list = []
+    for word in word_score_dict:
+        if word_score_dict[word] == winning_score:
+            winning_words_list.append(word)
+
+    if len(winning_words_list) > 1:
+        winning_word = winning_words_list[0]
+        for word in winning_words_list:
+            if len(word) >= 10:
+                return word, winning_score
+            elif len(word) < len(winning_word):
+                winning_word = word
+    else:
+        return winning_words_list[0], winning_score
+    
+    return winning_word, winning_score
+
+        
+
+    
+    # winning_word = word_list[0]
+    # winning_word_score = score_word(winning_word)
+    # winning_word_dict = {}
+    # for curr_word in word_list:
+    #     curr_word_score = score_word(curr_word)
+    #     if curr_word_score > winning_word_score:
+    #         winning_word = curr_word
+    #         winning_word_score = curr_word_score
+    #     elif curr_word_score == winning_word_score:
+    #         winning_word_dict[curr_word] = curr_word_score
+        
+    # if winning_word_dict:
+    #     winning_word = list(winning_word_dict.keys()[0])
+    #     for word in winning_word_dict:
+    #         if len(word) == 10:
+
+
+
+
+
+            # if len(curr_word) == len(winning_word):
+            #     return winning_word, winning_word_score
+            # if len(curr_word) >= 10:
+            #     winning_word = curr_word
+            #     winning_word_score = curr_word_score
+            
+            # len(curr_word) < len(winning_word) and
+
+
+
+    # word_score_dict = {}
+    # for word in word_list:
+    #     word_score_dict[word] = score_word(word)
+
+    # for word, score in word_score_dict.items():
+    #     winning_word = (word, score)
+
+
+
+    # return winning_word, winning_word_score
